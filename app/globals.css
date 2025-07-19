@@ -125,8 +125,19 @@
 
 .logo{
   font-family: logo;
-  background: linear-gradient(270deg, purple, rgb(0, 155, 186));
+  background: linear-gradient(270deg, rgb(150, 0, 192), rgb(0, 170, 204));
    -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.slider{
+  transform: translateX(-100vw);
+  transition: transform 0.3s ease-in-out;
+}
+.slider-off{
+  transform: translateX(0vw);
+  transition: transform 0.3s ease-in-out;
+}
+*{
+  font-family: Helvetica;
 }

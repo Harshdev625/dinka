@@ -1,7 +1,14 @@
-import React from 'react'
+import React from 'react';
+import Footer from '@/components/footer';
 
-export default function page() {
+export default function Page() {
   return (
-    <div>page</div>
-  )
+    <div className="min-h-[89vh] flex flex-col justify-between ">
+      <div className='flex-grow'>
+
+      </div>
+
+      <Footer />
+    </div>
+  );
 }

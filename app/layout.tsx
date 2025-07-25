@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Dinka - To Be Social",
   description: "Dinka is a social media app",
 };
+import React from 'react';
+
+
 import  SessionProvider from "@/app/Providers/SessionProvider";
 export default function RootLayout({
   children,
@@ -12,11 +15,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={` antialiased min-h-screen`}
+        className={`bg-zinc-50 antialiased min-h-screen`}
       >
             <SessionProvider>
+              
+    
+              <div className="w-screen min-h-screen relative">
+
               <NavBar/>
               {children}
+              </div>
+    
             </SessionProvider>
       </body>
     </html>

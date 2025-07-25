@@ -14,14 +14,24 @@ export const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials || !credentials.email || !credentials.password) return null;
+        if (!credentials?.email || !credentials?.password) return null;
+
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
+
         if (!user || user.provider !== "Email") return null;
-        const isValid = bcrypt.compareSync(credentials.password, user.password!);
+
+        const isValid = await bcrypt.compare(credentials.password, user.password!);
         if (!isValid) return null;
-        return user;
+
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image,
+          provider: user.provider,
+        }
       },
     }),
 
@@ -31,41 +41,51 @@ export const authOptions: AuthOptions = {
       credentials: {
         email: { label: "Email", type: "text" },
         otp: { label: "OTP", type: "text" },
-        password:{label: "Password", type:"text"}
+        password: { label: "Password", type: "text" },
       },
       async authorize(credentials) {
-        if (!credentials || !credentials.email || !credentials.otp || !credentials.password) return null;
+        if (!credentials?.email || !credentials?.otp || !credentials?.password) return null;
+
         const otpRecord = await prisma.oTPTable.findFirst({
           where: {
             email: credentials.email,
             otp: credentials.otp,
-            expiry: {
-              gt: new Date(Date.now() - 5 * 60 * 1000), // 5 mins
-            },
+            expiry: { gt: new Date(Date.now() - 5 * 60 * 1000) }, // valid for 5 minutes
           },
         });
         if (!otpRecord) return null;
+
         let user = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
-        const salt = await bcrypt.genSalt(10)
-        const hashed = await bcrypt.hash(credentials.password, salt)
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(credentials.password, salt);
+
         if (!user) {
           user = await prisma.user.create({
             data: {
               email: credentials.email,
               provider: "Email",
-              password:hashed
+              password: hashedPassword,
             },
           });
         }
+
         await prisma.oTPTable.deleteMany({
           where: {
-            email:credentials.email,
+            email: credentials.email,
             expiry: { lt: new Date() },
           },
         });
-        return user;
+
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image,
+          provider: user.provider,
+        };
       },
     }),
 
@@ -83,7 +103,7 @@ export const authOptions: AuthOptions = {
     async signIn({ account, profile }) {
       if (account?.provider === "google") {
         if (!profile?.email) return false;
-        console.log(profile, account)
+
         const user = await prisma.user.findUnique({
           where: { email: profile.email },
         });
@@ -93,42 +113,56 @@ export const authOptions: AuthOptions = {
             data: {
               email: profile.email,
               provider: "Google",
-              // @ts-ignore
-              pic: profile?.picture || "",
+              //@ts-ignore
+              pic: profile.picture || "",
+              name: profile.name || "",
             },
           });
-          return true;
         }
-        return user.provider === "Google";
+
+        return true;
       }
 
       return true;
     },
 
-    async jwt({ token, user }: any) {
+    async jwt({ token, user, account, profile }) {
+      // For credentials logins
       if (user) {
-        token.email = user.email;
         token.id = user.id;
+        token.email = user.email;
       }
+
+      // For Google logins (user is undefined)
+      if (account?.provider === "google" && profile?.email) {
+        token.email = profile.email;
+
+        const dbUser = await prisma.user.findUnique({
+          where: { email: profile.email },
+          select: { id: true },
+        });
+
+        if (dbUser) {
+          token.id = dbUser.id;
+        }
+      }
+
       return token;
     },
-    
-    async session({ session, token }: any) {
-      if (token?.email) {
-        session.user.email = token.email;
-      }
-      if (token?.id) {
-        session.user.id = token.id;
-      }
+
+    async session({ session, token }) {
+      //@ts-ignore
+      if (token?.email) session.user.email = token.email;
+      //@ts-ignore
+      if (token?.id) session.user.id = token.id;
       return session;
     },
   },
-  pages: {
-  signIn: "/", 
-  
-  error: "/login",  
-},
 
+  pages: {
+    signIn: "/",   
+    error: "/login", 
+  },
 };
 
 export default NextAuth(authOptions);

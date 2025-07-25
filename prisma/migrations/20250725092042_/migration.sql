@@ -24,7 +24,7 @@ CREATE TABLE "User" (
     "lastname" TEXT,
     "username" TEXT,
     "dob" TIMESTAMP(3),
-    "bio" TEXT,
+    "bio" TEXT NOT NULL DEFAULT 'Hello !!!',
     "phone" BIGINT,
     "pic" TEXT,
     "lastSeenAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

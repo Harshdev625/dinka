@@ -8,12 +8,13 @@ import {
     Globe,
     Users,
 } from "lucide-react";
-
+import share from "@/components/Posts/sharecall"
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
-
+import { Toaster } from "../ui/sonner";
+import { toast } from "sonner";
 type PostProps = {
     id: number;
     likes: number; 
@@ -27,6 +28,7 @@ type PostProps = {
         image?: string;
     };
     createdAt: string;
+    falserounded?:boolean;
 };
 
 export default function Post({
@@ -39,18 +41,21 @@ export default function Post({
     author,
     createdAt,
     handleLike,
-    isLiked
-}: PostProps&{handleLike:any}) {
+    isLiked,
+    redir,
+    falserounded
+}: PostProps&{handleLike:any, redir?:boolean}) {
     const visibilityIcon = {
         Public: <Globe className="w-4 h-4 text-blue-500" />,
         Followers: <Users className="w-4 h-4 text-green-500" />,
     }[visibility];
 
     return (
-        <div className="rounded-4xl mb-5 border-zinc-200  border p-4 w-full max-w-xl mx-auto space-y-2 transition-all duration-300   bg-background shadow-xs  dark:bg-input/30 dark:border-input ">
+        <div className="rounded-3xl mb-5 border-zinc-200  border p-4 w-full max-w-xl mx-auto space-y-2 transition-all duration-300   bg-background shadow-xs  dark:bg-input/30 dark:border-input ">
             <div className="flex items-start justify-between">
                 <div className="w-max flex items-center">
                     <div className="relative w-16 h-16 rounded-full overflow-hidden shrink-0">
+                        <Toaster/>
                         <Image
                             alt="author"
                             src={
@@ -76,13 +81,14 @@ export default function Post({
                     <DialogDemo/>
                 </div>
             </div>
-
+            {redir?<Link href={`${window.location.origin}/postid/${id}`}>
             {/* Post Content */}
             <div className="text-[14.6px] px-2 text-zinc-800 whitespace-pre-wrap">{title}</div>
+            </Link>:<div className="text-[14.6px] px-2 text-zinc-800 whitespace-pre-wrap">{title}</div>}
                                         
          {isMedia && mediaUrl && (
                 <Link href={mediaUrl}>
-                <div className="w-full h-[400px] relative   overflow-hidden">
+                <div className="w-full h-[400px] relative  mt-5 overflow-hidden">
                     <Image
                     src={mediaUrl}
                     alt="post media"
@@ -97,23 +103,23 @@ export default function Post({
                     onClick={()=>handleLike(id, !isLiked)}
                     type="button"
                     aria-label="Love"
-                    className={`${isLiked?"text-white bg-rose-500":"text-rose-400 bg-zinc-100"} transition gap-1  py-3 px-6 rounded-full w-1/3 flex justify-center items-center`}
+                    className={`${isLiked?"text-white bg-rose-500":"text-rose-400 bg-zinc-100"} transition gap-1  py-2 px-6 rounded-full w-1/3 flex justify-center items-center`}
                 >
-                    <Heart className="w-5 h-5 " strokeWidth={2.4}  />{likes?likes:""}
+                    <Heart className="w-5 h-5 " strokeWidth={2.4}  /> <span className="text-sm">{likes?likes:""}</span>
                 </button>
 
                 <button
                     type="button"
                     aria-label="Comment"
-                    className="text-blue-400 transition bg-zinc-100  py-3 px-6 rounded-full w-1/3 flex justify-center"
+                    className="text-blue-400 transition bg-zinc-100  py-2 px-6 rounded-full w-1/3 flex justify-center"
                 >
                     <MessageCircle className="w-5 h-5 " strokeWidth={2.4}  />
                 </button>
 
-                <button
+                <button onClick={()=> share(id)}
                     type="button"
                     aria-label="Share"
-                    className="text-purple-400 transition bg-zinc-100  py-3 px-6 rounded-full w-1/3 flex justify-center"
+                    className="text-purple-400 transition bg-zinc-100  py-2 px-6 rounded-full w-1/3 flex justify-center"
                 >
                     <Share2 className="w-5 h-5 " strokeWidth={2.4}  />
                 </button>

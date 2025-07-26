@@ -28,10 +28,10 @@ export function LoginForm({
   const { data: session } = useSession()
      if (session) {
       return (
-        <>
+        <div className="text-center ">
           Signed in as {session?.user?.email} <br />
           <button onClick={() => signOut()}>Sign out</button>
-        </>
+        </div>
       )
     }
   

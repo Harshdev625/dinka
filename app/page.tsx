@@ -1,5 +1,5 @@
 "use client";
-
+ import { Skeleton } from "@/components/ui/skeleton"
 import Footer from "@/components/footer";
 import Posts from "@/components/Posts";
 import React, { useEffect, useState } from "react";
@@ -40,14 +40,13 @@ export default function Page() {
 
     if (!res.ok) throw new Error("Like failed");
 
-    // ✅ Update post in posts array
     setPosts((prev) =>
       prev.map((e) =>
         e.id === id
           ? {
               ...e,
               isLiked: whatToDo,
-              likes: e.likes + (whatToDo ? 1 : -1),
+              likes: (e.likes + (whatToDo ? 1 : -1))>0?(e.likes + (whatToDo ? 1 : -1)):0,
             }
           : e
       )
@@ -63,11 +62,14 @@ export default function Page() {
     <div className="min-h-[89vh] flex flex-col justify-between ">
       {isLoading ? (
         <div className="flex items-center justify-center flex-grow">
-          <img
-            src="/loading-54.gif"
-            alt="Loading..."
-            className="w-24  rounded-full"
-          />
+    <div className="flex items-center space-x-4">
+      <Skeleton className="h-12 w-12 rounded-full" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[200px]" />
+      </div>
+    </div>
+
         </div>
       ) : (
         <div className="flex-grow overflow-y-auto">

@@ -5,9 +5,8 @@ export default function Posts({posts, handleLike}:{posts:any, handleLike:any}) {
   
   return (
     <div className='px-2'>
-        <div className='py-14'></div>
         {posts?.map((e:PostType)=>(
-          <Post handleLike={handleLike} isLiked={e.isLiked} likes={e.likes} id={e.id} key={e.id} title={e.title} visibility={e.visiblity} author={{name: e.author.name}} createdAt={e.createdAt} isMedia={e.isMedia} mediaUrl={e.mediaurl}  />
+          <Post handleLike={handleLike} redir={true} isLiked={e.isLiked} likes={e.likes} id={e.id} key={e.id} title={e.title} visibility={e.visiblity} author={{name: e.author.name}} createdAt={e.createdAt} isMedia={e.isMedia} mediaUrl={e.mediaurl}  />
         ))}
     </div>
   )

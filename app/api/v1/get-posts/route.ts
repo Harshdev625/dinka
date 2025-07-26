@@ -40,6 +40,7 @@ export const GET = async (req: NextRequest) => {
           id: true,
         },
       },
+      
       _count: {
         select: {
           likes: true,

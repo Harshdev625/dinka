@@ -85,10 +85,11 @@
       }
     }, [open]);
 
-    return (<div className="sticky top-0 z-30">
+    return (<>
+    <div className="sticky top-0 z-30 ">
       <div className="relative w-screen ">
         {/* Top Navbar */}
-        <div className="w-full absolute top-0 left-0  flex items-center h-[11vh] z-30 backdrop-blur-md backdrop-saturate-[1.8] justify-between px-4 ">
+        <div className="w-full absolute top-0 left-0  bg-zinc-100/80 backdrop-blur-md backdrop-saturate-[1.8] flex items-center h-[11vh] z-30  justify-between px-4 ">
           <div className="logo text-4xl ml-1">dinka</div>
         </div>
 
@@ -148,5 +149,6 @@
         </div>
       </div>
       </div>
+      </>
     );
   }

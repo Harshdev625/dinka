@@ -23,6 +23,7 @@ export default function RootLayout({
               <div className="w-screen min-h-screen relative">
 
               <NavBar/>
+              <div className="py-14"></div>
               {children}
               </div>
     

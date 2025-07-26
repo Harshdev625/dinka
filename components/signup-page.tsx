@@ -39,10 +39,10 @@ export function LoginForm({
   const router = useRouter()
    if (session) {
     return (
-      <>
+       <div className="text-center ">
         Signed in as {session?.user?.email} <br />
         <button onClick={() => signOut()}>Sign out</button>
-      </>
+      </div>
     )
   }
 

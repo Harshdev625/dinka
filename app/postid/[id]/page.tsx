@@ -3,7 +3,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import prisma from "@/lib/prisma";
 import ShowPost from "@/components/Posts/ShowPost";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }:any) {
   const { id } = params; // ✅ Do NOT await here
 
   const session = await getServerSession(authOptions);

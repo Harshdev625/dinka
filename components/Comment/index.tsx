@@ -12,7 +12,7 @@ export default function index({comments,id}:any) {
   return (
     <div className=''>
       <div className='max-h-[50vh] overflow-y-scroll '>
-        {commentState.map((e:any)=><div className='w-full border p-2  bg-zinc-100  rounded-xl mb-2'>
+        {commentState.map((e:any)=><div key={e.createdAt} className='w-full border p-2  bg-zinc-100  rounded-xl mb-2'>
           <div className='flex gap-3'>
             <div className='w-8 h-8 bg-black  rounded-full'>
 

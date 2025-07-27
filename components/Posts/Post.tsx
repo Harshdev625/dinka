@@ -54,15 +54,16 @@ export default function Post({
         <div className="rounded-3xl mb-5 border-zinc-200  border p-4 w-full max-w-xl mx-auto space-y-2 transition-all duration-300   bg-background shadow-xs  dark:bg-input/30 dark:border-input ">
             <div className="flex items-start justify-between">
                 <div className="w-max flex items-center">
-                    <div className="relative w-16 h-16 rounded-full overflow-hidden shrink-0">
+                    <div className="relative w-14 h-14 rounded-full overflow-hidden shrink-0">
                         <Toaster/>
                         <Image
                             alt="author"
-                            src={
-                                author.image ||
-                                "https://imgs.search.brave.com/XGLf_1PQgMe663J8lzlj5Q43AOJUWIEyTIP1nI4rTT0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4z/ZC5pY29uc2NvdXQu/Y29tLzNkL3ByZW1p/dW0vdGh1bWIvdXNl/ci0zZC1pbGx1c3Ry/YXRpb24tZG93bmxv/YWQtaW4tcG5nLWJs/ZW5kLWZieC1nbHRm/LWZpbGUtZm9ybWF0/cy0tYXZhdGFyLXBy/b2ZpbGUtYWNjb3Vu/dC1pbnRlcmZpY29u/LXNldC0yLWxpZ2h0/LXBhY2staW50ZXJm/YWNlLWlsbHVzdHJh/dGlvbnMtMzEwNTI2/NS5wbmc"
-                            }
+                                          src={
+                author.image ||
+                "https://ui-avatars.com/api/?name=" + encodeURIComponent(author.name)
+              }
                             fill
+                            
                             style={{ objectFit: "cover" }}
                         />
                     </div>
@@ -93,6 +94,8 @@ export default function Post({
                     src={mediaUrl}
                     alt="post media"
                     fill
+                    quality={30}
+                    priority={false}
                     className="object-contain w-full h-full rounded-md overflow-hidden "
                     />
                 </div>
@@ -107,14 +110,11 @@ export default function Post({
                 >
                     <Heart className="w-5 h-5 " strokeWidth={2.4}  /> <span className="text-sm">{likes?likes:""}</span>
                 </button>
-
-                <button
-                    type="button"
-                    aria-label="Comment"
-                    className="text-blue-400 transition bg-zinc-100  py-2 px-6 rounded-full w-1/3 flex justify-center"
-                >
+                <Link href={`${window.location.origin}/postid/${id}`} className="text-blue-400 transition bg-zinc-100  py-2 px-6 rounded-full w-1/3 flex justify-center">
+                
                     <MessageCircle className="w-5 h-5 " strokeWidth={2.4}  />
-                </button>
+                
+                </Link>
 
                 <button onClick={()=> share(id)}
                     type="button"

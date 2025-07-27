@@ -1,6 +1,6 @@
-import type { NextConfig } from "next";
+// next.config.js or next.config.ts (if using TypeScript)
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   images: {
     remotePatterns: [
       {
@@ -18,8 +18,19 @@ const nextConfig: NextConfig = {
         hostname: "imgs.search.brave.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
+      
+      {
+        protocol: "https",
+        hostname: "ui-avatars.com",
+        pathname: "/**",
+      },
     ],
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

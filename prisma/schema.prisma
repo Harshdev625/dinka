@@ -8,53 +8,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Viewers {
-  Public
-  Followers
-}
-
-enum Relationship {
-  Follower
-  Blocked
-}
-enum Provider{
-  Google
-  Email
-}
-
-enum ChatType {
-  Message
-  Call
-  VideoCall
-}
-
 model User {
-  id             String    @id @default(uuid()) // required for adapter
-  email          String   @unique
-  emailVerified  DateTime?
-  name           String?
-  image          String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  password        String?
-  firstname       String?
-  lastname        String?
-  username        String?  @unique
-  dob             DateTime?
-  bio             String @default("Hello !!!")
-  phone           BigInt?  @unique
-  pic             String?
-  lastSeenAt      DateTime @default(now())
-  provider        Provider
-  posts           Post[]
-  comments        Comment[]
-  likedPosts      Post[]         @relation("PostLikes")
-  following       Relations[]    @relation("Following")
-  followers       Relations[]    @relation("Followers")
-  notifications   Notification[]
-  seenPosts       SeenPost[]
-  chatsSent       Chats[]        @relation("SentChats")
-  chatsReceived   Chats[]        @relation("ReceivedChats")
+  id            String         @id @default(uuid())
+  email         String         @unique
+  emailVerified DateTime?
+  name          String?
+  image         String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  password      String?
+  firstname     String?
+  lastname      String?
+  username      String?        @unique
+  dob           DateTime?
+  bio           String         @default("Hello !!!")
+  phone         BigInt?        @unique
+  pic           String?
+  lastSeenAt    DateTime       @default(now())
+  provider      Provider
+  chatsSent     Chats[]        @relation("SentChats")
+  chatsReceived Chats[]        @relation("ReceivedChats")
+  comments      Comment[]
+  notifications Notification[]
+  posts         Post[]
+  following     Relations[]    @relation("Following")
+  followers     Relations[]    @relation("Followers")
+  seenPosts     SeenPost[]
+  likedPosts    Post[]         @relation("PostLikes")
 
   @@index([createdAt])
   @@index([lastSeenAt])
@@ -70,19 +50,18 @@ model OTPTable {
 }
 
 model Post {
-  id         Int      @id @default(autoincrement())
-  title      String
-  visiblity  Viewers  @default(Public)
-  author     User     @relation(fields: [authorId], references: [id])
-  authorId   String
-  isMedia    Boolean
-  mediaurl   String?
-  createdAt  DateTime @default(now())
-
-  likes         User[]         @relation("PostLikes")
+  id            Int            @id @default(autoincrement())
+  title         String
+  visiblity     Viewers        @default(Public)
+  authorId      String
+  isMedia       Boolean
+  mediaurl      String?
+  createdAt     DateTime       @default(now())
   comments      Comment[]
   notifications Notification[]
+  author        User           @relation(fields: [authorId], references: [id])
   seenBy        SeenPost[]
+  likes         User[]         @relation("PostLikes")
 
   @@index([authorId])
   @@index([createdAt])
@@ -92,12 +71,12 @@ model Post {
 
 model Comment {
   commentId String   @id @default(ulid())
-  user      User     @relation(fields: [userId], references: [id])
   userId    String
-  post      Post     @relation(fields: [postId], references: [id])
   postId    Int
   content   String
   createdAt DateTime @default(now())
+  post      Post     @relation(fields: [postId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@index([postId])
@@ -105,13 +84,13 @@ model Comment {
 }
 
 model Relations {
-  id        Int      @id @default(autoincrement())
-  src       User     @relation("Followers", fields: [srcid], references: [id])
-  dest      User     @relation("Following", fields: [destid], references: [id])
+  id        Int          @id @default(autoincrement())
   srcid     String
   destid    String
   type      Relationship
-  createdAt DateTime @default(now())
+  createdAt DateTime     @default(now())
+  dest      User         @relation("Following", fields: [destid], references: [id])
+  src       User         @relation("Followers", fields: [srcid], references: [id])
 
   @@unique([srcid, destid])
   @@index([srcid])
@@ -122,12 +101,12 @@ model Relations {
 
 model Notification {
   id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
   userId    String
-  post      Post     @relation(fields: [postid], references: [id])
   postid    Int
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
+  post      Post     @relation(fields: [postid], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@index([postid])
@@ -136,12 +115,12 @@ model Notification {
 }
 
 model SeenPost {
-  id       Int      @id @default(autoincrement())
-  user     User     @relation(fields: [userId], references: [id])
-  userId   String
-  post     Post     @relation(fields: [postId], references: [id])
-  postId   Int
-  seenAt   DateTime @default(now())
+  id     Int      @id @default(autoincrement())
+  userId String
+  postId Int
+  seenAt DateTime @default(now())
+  post   Post     @relation(fields: [postId], references: [id])
+  user   User     @relation(fields: [userId], references: [id])
 
   @@unique([userId, postId])
   @@index([userId])
@@ -151,9 +130,7 @@ model SeenPost {
 
 model Chats {
   id              BigInt   @id @default(autoincrement())
-  from            User     @relation("SentChats", fields: [fromId], references: [id])
   fromId          String
-  to              User     @relation("ReceivedChats", fields: [toId], references: [id])
   toId            String
   type            ChatType
   mediaUrl        String?
@@ -162,10 +139,33 @@ model Chats {
   isDeletedByFrom Boolean  @default(false)
   isDeletedByTo   Boolean  @default(false)
   createdAt       DateTime @default(now())
+  from            User     @relation("SentChats", fields: [fromId], references: [id])
+  to              User     @relation("ReceivedChats", fields: [toId], references: [id])
 
   @@index([fromId])
   @@index([toId])
   @@index([type])
   @@index([isSeen])
   @@index([createdAt])
+}
+
+enum Viewers {
+  Public
+  Followers
+}
+
+enum Relationship {
+  Follower
+  Blocked
+}
+
+enum Provider {
+  Google
+  Email
+}
+
+enum ChatType {
+  Message
+  Call
+  VideoCall
 }

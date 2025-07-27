@@ -6,8 +6,8 @@ export const metadata: Metadata = {
   description: "Dinka is a social media app",
 };
 import React from 'react';
-
-
+import { PostProvider } from "@/app/Providers/PostsProvider";
+import { usePostContext } from "@/app/Providers/PostsProvider";
 import  SessionProvider from "@/app/Providers/SessionProvider";
 export default function RootLayout({
   children,
@@ -18,15 +18,14 @@ export default function RootLayout({
         className={`bg-zinc-50 antialiased min-h-screen`}
       >
             <SessionProvider>
-              
-    
               <div className="w-screen min-h-screen relative">
-
               <NavBar/>
               <div className="py-14"></div>
+              <PostProvider>
               {children}
+              </PostProvider>
               </div>
-    
+              
             </SessionProvider>
       </body>
     </html>

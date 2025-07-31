@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Toaster } from "sonner";
 import { toast } from "sonner";
+import Link from "next/link";
+
 type Person = {
   id: string;
   name: string;
@@ -61,6 +63,10 @@ export default function Page() {
 
   return (
     <div className="w-full space-y-4">
+      <div className="flex justify-end pr-4">
+      <Link className="text-right" href={"/people/find"}>Find Friends</Link>
+
+      </div>
       <Toaster/>
       {requests.length !== 0 && (
         <h2 className=" p-2 font-bold">Confirm Requests</h2>

@@ -24,7 +24,7 @@ export const PostProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch("api/v1/get-posts");
+        const response = await fetch("/api/v1/get-posts");
         const data = await response.json();
         setPosts(data.posts || []);
       } catch (error) {

@@ -1,23 +1,58 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import Image from "next/image";
-
+import Image from "next/image"; 
+import Post from "@/components/Posts/Post";
 export default function Page() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-
+  const [userposts, setUserPosts] = useState<any[]>([])
+  
   useEffect(() => {
     (async () => {
       const res = await fetch("/api/v1/getuserdetails", { method: "POST" });
       const data = await res.json();
       if (!data.error) {
         setData(data);
-        console.log(data)
         setLoading(false);
       }
     })();
   }, []);
+  useEffect(() => {
+    (async () => {
+      const res = await fetch("/api/v1/getuserposts", { method: "POST" });
+      const data = await res.json();
+      if (!data.error) {
+        setUserPosts(data.posts);
+      }
+    })();
+  }, []);
+  
+  const handleLike = async (id: number, whatToDo: boolean) => {
+    try {
+      const res = await fetch(`/api/v1/togglelike`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, whatToDo }),
+      });
+      if (!res.ok) throw new Error("Like failed");
+
+      setUserPosts((prev) =>
+        prev.map((e) =>
+          e.id === id
+            ? {
+                ...e,
+                isLiked: whatToDo,
+                likes: Math.max(0, e.likes + (whatToDo ? 1 : -1)),
+              }
+            : e
+        )
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
 
   if (loading) {
     return (
@@ -32,7 +67,6 @@ export default function Page() {
       </div>
     );
   }
-
   const { user, followersCount, followingCount } = data || {};
   return (
     <div className="w-full max-w-md mx-auto px-4 py-10">
@@ -60,12 +94,15 @@ export default function Page() {
           </div>
         </div>
       </div>
-        <div className="p-4 font-bold text-zinc-600 text-xl">
-          <div>Posts</div>
+        <div className="p-4 sticky top-0 font-bold text-zinc-600 text-xl">
+          <div>Recent Posts</div>
         </div>
         <div className="flex flex-wrap ">
-
-
+           <div className='px-2'>
+                  {userposts?.map((e:any)=>(
+                    <Post handleLike={handleLike} redir={true} isLiked={e.isLiked} likes={e.likes} id={e.id} key={e.id} title={e.title} visibility={e.visiblity} author={{name: e.author.name}} createdAt={e.createdAt} isMedia={e.isMedia} mediaUrl={e.mediaurl}  />
+                  ))}
+              </div>
         </div>
     </div>
   );

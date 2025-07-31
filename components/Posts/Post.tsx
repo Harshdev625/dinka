@@ -56,17 +56,16 @@ export default function Post({
     <div className="rounded-3xl mb-5 border-zinc-200 border p-4 w-full max-w-xl mx-auto space-y-2 transition-all duration-300 bg-background shadow-xs dark:bg-input/30 dark:border-input">
       <div className="flex items-start justify-between">
         <div className="w-max flex items-center">
-          <div className="relative w-14 h-14 rounded-full overflow-hidden shrink-0">
+          <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0">
             <Toaster />
             <Image
               alt="author"
               src={
                 author.image ||
-                "https://ui-avatars.com/api/?name=" +
-                  encodeURIComponent(author.name)
+                "https://imgs.search.brave.com/iiL6FIsWn1W2fHExlUdzmEXVolOVkj4jfy06SrdfTf8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4x/LnZlY3RvcnN0b2Nr/LmNvbS9pL3RodW1i/LWxhcmdlLzk3Lzcw/L3B1cnBsZS11c2Vy/LWljb24taW4tdGhl/LWNpcmNsZS1hLXNv/bGlkLWdyYWRpZW50/LXZlY3Rvci0yMzUx/OTc3MC5qcGc"
               }
               fill
-              style={{ objectFit: "cover" }}
+              style={{ objectFit: "cover", borderRadius:"2000px", scale:"2.1", filter:"saturate(0)" }}
             />
           </div>
           <div className="flex-1 flex flex-col px-2 pb-2">

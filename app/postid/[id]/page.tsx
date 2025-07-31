@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import ShowPost from "@/components/Posts/ShowPost";
 
 export default async function Page({ params }:any) {
-  const { id } = params; // ✅ Do NOT await here
+  const { id } = await params;
 
   const session = await getServerSession(authOptions);
   if (!session?.user?.email) {

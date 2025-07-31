@@ -1,6 +1,5 @@
 "use client";
  import { Skeleton } from "@/components/ui/skeleton"
-import Footer from "@/components/footer";
 import Posts from "@/components/Posts";
 import { usePostContext } from "./Providers/PostsProvider";
 export default function Page() {

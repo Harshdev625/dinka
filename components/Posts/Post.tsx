@@ -1,7 +1,7 @@
 "use client";
 
 import { DialogDemo } from "./Options";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Heart,
   MessageCircle,
@@ -11,11 +11,9 @@ import {
 } from "lucide-react";
 import share from "@/components/Posts/sharecall";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
 import { Toaster } from "../ui/sonner";
-import { toast } from "sonner";
 
 type PostProps = {
   id: number;
@@ -52,6 +50,8 @@ export default function Post({
     Followers: <Users className="w-4 h-4 text-green-500" />,
   }[visibility];
 
+
+
   return (
     <div className="rounded-3xl mb-5 border-zinc-200 border p-4 w-full max-w-xl mx-auto space-y-2 transition-all duration-300 bg-background shadow-xs dark:bg-input/30 dark:border-input">
       <div className="flex items-start justify-between">
@@ -65,7 +65,7 @@ export default function Post({
                 "https://imgs.search.brave.com/iiL6FIsWn1W2fHExlUdzmEXVolOVkj4jfy06SrdfTf8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4x/LnZlY3RvcnN0b2Nr/LmNvbS9pL3RodW1i/LWxhcmdlLzk3Lzcw/L3B1cnBsZS11c2Vy/LWljb24taW4tdGhl/LWNpcmNsZS1hLXNv/bGlkLWdyYWRpZW50/LXZlY3Rvci0yMzUx/OTc3MC5qcGc"
               }
               fill
-              style={{ objectFit: "cover", borderRadius:"2000px", scale:"2.1", filter:"saturate(0)" }}
+              style={{ objectFit: "cover",  }}
             />
           </div>
           <div className="flex-1 flex flex-col px-2 pb-2">
@@ -80,7 +80,6 @@ export default function Post({
           </div>
         </div>
 
-        {/* Visibility */}
         <div className="flex items-center space-x-1 text-xs text-zinc-500 px-5 py-3">
           {visibilityIcon}
           <span>{visibility}</span>
@@ -88,7 +87,6 @@ export default function Post({
         </div>
       </div>
 
-      {/* Post Content */}
       {redir ? (
         <Link href={`/postid/${id}`}>
           <div className="text-[14.6px] px-2 text-zinc-800 whitespace-pre-wrap">

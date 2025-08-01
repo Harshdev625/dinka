@@ -86,11 +86,11 @@ export default function Page() {
         <div className="flex justify-between w-full mt-6 gap-4">
           <div className="flex-1 bg-zinc-100 rounded-lg py-3 text-center">
             <div className="text-lg font-medium text-zinc-800">{followersCount ?? 0}</div>
-            <div className="text-xs text-zinc-500">Followers</div>
+            <div className="text-xs text-zinc-500">Following</div>
           </div>
           <div className="flex-1 bg-zinc-100 rounded-lg py-3 text-center">
             <div className="text-lg font-medium text-zinc-800">{followingCount ?? 0}</div>
-            <div className="text-xs text-zinc-500">Following</div>
+            <div className="text-xs text-zinc-500"> Followers</div>
           </div>
         </div>
       </div>

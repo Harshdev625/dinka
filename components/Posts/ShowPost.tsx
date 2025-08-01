@@ -13,7 +13,7 @@ type PostProps = {
   isLiked: boolean;
   author: {
     name: string;
-    image?: string;
+    pic?: string;
   };
   createdAt: string;
   comments:any;

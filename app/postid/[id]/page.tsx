@@ -26,7 +26,7 @@ export default async function Page({ params }:any) {
       author: {
         select: {
           name: true,
-          image: true,
+          pic: true,
         },
       },
       likes: {

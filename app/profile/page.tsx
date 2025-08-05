@@ -100,7 +100,7 @@ export default function Page() {
         <div className="flex flex-wrap ">
            <div className='px-2'>
                   {userposts?.map((e:any)=>(
-                    <Post handleLike={handleLike} redir={true} isLiked={e.isLiked} likes={e.likes} id={e.id} key={e.id} title={e.title} visibility={e.visiblity} author={{name: e.author.name}} createdAt={e.createdAt} isMedia={e.isMedia} mediaUrl={e.mediaurl}  />
+                    <Post handleLike={handleLike} redir={true} isLiked={e.isLiked} likes={e.likes} id={e.id} key={e.id} title={e.title} visibility={e.visiblity} author={{name: e.author.name, pic: e.author.pic}} createdAt={e.createdAt} isMedia={e.isMedia} mediaUrl={e.mediaurl}  />
                   ))}
               </div>
         </div>

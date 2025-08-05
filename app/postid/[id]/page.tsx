@@ -40,6 +40,7 @@ export default async function Page({ params }:any) {
               id: true,
               name: true,
               image: true,
+              pic:true
             },
           },
         },

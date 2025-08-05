@@ -12,6 +12,7 @@
     FileTextIcon,
     ShieldCheckIcon,
   } from "lucide-react";
+  import Link from "next/link";
   import gsap from "gsap";
 
   export default function Navbar() {
@@ -22,9 +23,9 @@
 
     const menuItems = [
       { label: "Home", icon: <HomeIcon className="w-5 h-5 mr-3" /> },
-      { label: "Friends", icon: <UsersIcon className="w-5 h-5 mr-3" /> },
-      { label: "Notifications", icon: <BellIcon className="w-5 h-5 mr-3" /> },
-      { label: "Messages", icon: <MessageCircleIcon className="w-5 h-5 mr-3" /> },
+      { label: "Peoples", icon: <UsersIcon className="w-5 h-5 mr-3" /> },
+      { label: "Activity", icon: <BellIcon className="w-5 h-5 mr-3" /> },
+      { label: "Chats", icon: <MessageCircleIcon className="w-5 h-5 mr-3" /> },
       { label: "Settings", icon: <SettingsIcon className="w-5 h-5 mr-3" /> },
       { label: "Profile", icon: <UserIcon className="w-5 h-5 mr-3" /> },
     ];
@@ -119,16 +120,19 @@
                 ></div>
 
                 {menuItems.map((item, idx) => (
-                  <div
+                  <Link
+                    href={item.label==="Home"?"/":item.label.toLowerCase()}
                     key={idx}
+                    onClick={()=> setOpen(true)}
                     ref={(el) => {
+                      //@ts-ignore
                       if (el) itemRefs.current[idx] = el;
                     }}
                     className="menu-item w-full flex items-center text-[18px] bg-zinc-100 pl-6 rounded-3xl shadow-none py-4 my-2 text-zinc-700 hover:bg-zinc-300 transition"
                   >
                     {item.icon}
                     {item.label}
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>

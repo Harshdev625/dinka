@@ -26,6 +26,7 @@ type PostProps = {
   author: {
     name: string;
     image?: string;
+    pic?:string
   };
   createdAt: string;
   falserounded?: boolean;
@@ -61,7 +62,7 @@ export default function Post({
             <Image
               alt="author"
               src={
-                author.image ||
+                author.image ||author.pic||
                 "https://imgs.search.brave.com/iiL6FIsWn1W2fHExlUdzmEXVolOVkj4jfy06SrdfTf8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4x/LnZlY3RvcnN0b2Nr/LmNvbS9pL3RodW1i/LWxhcmdlLzk3Lzcw/L3B1cnBsZS11c2Vy/LWljb24taW4tdGhl/LWNpcmNsZS1hLXNv/bGlkLWdyYWRpZW50/LXZlY3Rvci0yMzUx/OTc3MC5qcGc"
               }
               fill
@@ -83,7 +84,7 @@ export default function Post({
         <div className="flex items-center space-x-1 text-xs text-zinc-500 px-5 py-3">
           {visibilityIcon}
           <span>{visibility}</span>
-          <DialogDemo />
+          <DialogDemo  />
         </div>
       </div>
 
@@ -133,7 +134,7 @@ export default function Post({
 
         <Link
           href={`/postid/${id}`}
-          className="text-blue-400 transition bg-zinc-100 py-2 px-6 rounded-full w-1/3 flex justify-center"
+          className="text-blue-500 transition bg-zinc-100 py-2 px-6 rounded-full w-1/3 flex justify-center"
         >
           <MessageCircle className="w-5 h-5" strokeWidth={2.4} />
         </Link>
@@ -142,7 +143,7 @@ export default function Post({
           onClick={() => share(id)}
           type="button"
           aria-label="Share"
-          className="text-purple-400 transition bg-zinc-100 py-2 px-6 rounded-full w-1/3 flex justify-center"
+          className="text-purple-500 transition bg-zinc-100 py-2 px-6 rounded-full w-1/3 flex justify-center"
         >
           <Share2 className="w-5 h-5" strokeWidth={2.4} />
         </button>

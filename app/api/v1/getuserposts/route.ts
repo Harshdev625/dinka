@@ -21,6 +21,8 @@ export const POST = async (req: NextRequest) => {
       author: {
         select: {
           name: true,
+          pic:true,
+          image: true
         },
       },
       likes: {

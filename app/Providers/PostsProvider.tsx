@@ -2,6 +2,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import type { PostType } from "@/lib/types";
 import Footer from "@/components/footer";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 type PostContextType = {
   posts: PostType[];
   addPost: (post: PostType) => void;
@@ -38,7 +40,25 @@ export const PostProvider = ({ children }: { children: React.ReactNode }) => {
   const addPost = (post: PostType) => {
     setPosts((prev) => [post, ...prev]);
   };
-
+  // const handlleDelete = async (postid:number) => {
+  //   const res = await fetch("/api/v1/deletepost", {
+  //     method:"POST",
+  //     body:JSON.stringify({postId:postid}),
+  //     headers:{
+  //       "Content-Type":"application/json"
+  //     }
+  //   })
+  //   const body = await res.json();
+  //   if(body.error){
+  //     toast.error(body.error)
+  //     return;
+  //   }
+  //   if(body.message){
+  //     toast.success(body.message)
+  //     setPosts((posts)=>posts.filter(e=>e.id!==postid))
+      
+  //   }
+  // }
   const handleLike = async (id: number, whatToDo: boolean) => {
     try {
       const res = await fetch(`/api/v1/togglelike`, {
@@ -65,7 +85,8 @@ export const PostProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <PostContext.Provider value={{ posts, addPost, isLoading, setIsLoading, handleLike }}>
+    <PostContext.Provider value={{ posts, addPost, isLoading, setIsLoading, handleLike}}>
+      <Toaster/>
       {children}
       <Footer addpost={addPost} setIsLoading={setIsLoading}  />
     </PostContext.Provider>

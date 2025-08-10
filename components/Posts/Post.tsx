@@ -14,7 +14,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
 import { Toaster } from "../ui/sonner";
-
 type PostProps = {
   id: number;
   likes: number;
@@ -30,6 +29,7 @@ type PostProps = {
   };
   createdAt: string;
   falserounded?: boolean;
+  handleDelete?: (postid:number)=>void;
 };
 
 export default function Post({
@@ -42,17 +42,16 @@ export default function Post({
   author,
   createdAt,
   handleLike,
+  handleDelete,
   isLiked,
   redir,
+  hidedel=true,
   falserounded,
-}: PostProps & { handleLike: any; redir?: boolean }) {
+}: PostProps & {hidedel?:boolean, handleLike: any; redir?: boolean }) {
   const visibilityIcon = {
     Public: <Globe className="w-4 h-4 text-blue-500" />,
     Followers: <Users className="w-4 h-4 text-green-500" />,
   }[visibility];
-
-
-
   return (
     <div className="rounded-3xl mb-5 border-zinc-200 border p-4 w-full max-w-xl mx-auto space-y-2 transition-all duration-300 bg-background shadow-xs dark:bg-input/30 dark:border-input">
       <div className="flex items-start justify-between">
@@ -84,7 +83,7 @@ export default function Post({
         <div className="flex items-center space-x-1 text-xs text-zinc-500 px-5 py-3">
           {visibilityIcon}
           <span>{visibility}</span>
-          <DialogDemo  />
+          {hidedel && <DialogDemo btnClick={()=>{ handleDelete && handleDelete(id)}} />}
         </div>
       </div>
 

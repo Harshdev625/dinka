@@ -27,6 +27,7 @@ export default async function Page({ params }:any) {
         select: {
           name: true,
           pic: true,
+          id:true,
         },
       },
       likes: {

@@ -19,6 +19,7 @@ export const POST = async (req: NextRequest) => {
       where: { id: postId },
       select: { authorId: true },
     });
+
     if (!post) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
@@ -27,9 +28,14 @@ export const POST = async (req: NextRequest) => {
     if (post.authorId !== session.user.id) {
       return NextResponse.json({ error: "Forbidden: Not your post" }, { status: 403 });
     }
-    await prisma.post.delete({
-      where: { id: postId },
+    await prisma.comment.deleteMany({
+      where: { postId: postId }
     });
+
+    await prisma.post.deleteMany({
+      where: { id:postId },
+    });
+    console.log(postId, post)
 
     return NextResponse.json({ message: "Post deleted successfully" }, { status: 200 });
 

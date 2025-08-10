@@ -23,7 +23,7 @@
 
     const menuItems = [
       { label: "Home", icon: <HomeIcon className="w-5 h-5 mr-3" /> },
-      { label: "Peoples", icon: <UsersIcon className="w-5 h-5 mr-3" /> },
+      { label: "People", icon: <UsersIcon className="w-5 h-5 mr-3" /> },
       { label: "Activity", icon: <BellIcon className="w-5 h-5 mr-3" /> },
       { label: "Chats", icon: <MessageCircleIcon className="w-5 h-5 mr-3" /> },
       { label: "Settings", icon: <SettingsIcon className="w-5 h-5 mr-3" /> },

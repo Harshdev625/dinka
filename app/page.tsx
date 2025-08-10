@@ -19,7 +19,7 @@ export default function Page() {
         </div>
       ) : (
         <div className="flex-grow overflow-y-auto">
-          <Posts posts={postContext.posts} handleLike={postContext.handleLike} />
+          <Posts  posts={postContext.posts} handleLike={postContext.handleLike}/>
         </div>
       )}
     </div>

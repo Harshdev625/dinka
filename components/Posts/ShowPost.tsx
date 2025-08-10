@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import Post from './Post';
 import Comment from "@/components/Comment"
 import GoBack from '../GoBack';
+import { toast } from 'sonner'
+import { useSession } from "next-auth/react"
+
 type PostProps = {
   id: number;
   likes: number;
@@ -14,6 +17,7 @@ type PostProps = {
   author: {
     name: string;
     pic?: string;
+    id:string;
   };
   createdAt: string;
   comments:any;
@@ -31,8 +35,29 @@ export default function ShowPost({
   isLiked,
   comments
 }: PostProps) {
+  const  data1:any  = useSession()
+  const userid = data1.data?.user?.id;
   const [likeCount, setLikeCount] = useState(likes);
   const [isPostLiked, setIsPostLiked] = useState(isLiked);
+   const handleDelete = async (postid:number) => {
+    const res = await fetch("/api/v1/deletepost", {
+      method:"POST",
+      body:JSON.stringify({postid:postid}),
+      headers:{
+        "Content-Type":"application/json"
+      }
+    })
+    const body = await res.json();
+    if(body.error){
+      toast.error(body.error)
+      return;
+    }
+    if(body.message){
+      toast.success(body.message)
+      window.location.href = "/"
+    }
+  }
+
   const handleLike = async (postId: number) => {
     try {
       const res = await fetch(`/api/v1/togglelike`, {
@@ -59,6 +84,7 @@ export default function ShowPost({
     <GoBack/>
     <Post
       falserounded={true}
+      hidedel={userid==author.id}
       id={id}
       likes={likeCount}
       isLiked={isPostLiked}
@@ -69,6 +95,7 @@ export default function ShowPost({
       mediaUrl={mediaUrl}
       visibility={visibility}
       handleLike={handleLike}
+      handleDelete={handleDelete}
       />
       <Comment id={id} comments={comments}/>
       </div>

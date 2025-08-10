@@ -9,10 +9,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { OptionIcon } from "lucide-react"
-export function DialogDemo() {
+export function DialogDemo({btnClick}:any) {
   return (
     <Dialog>
       <form>
@@ -21,10 +19,9 @@ export function DialogDemo() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px] rounded-4xl">
           <DialogHeader>
-            <DialogTitle>Options</DialogTitle>
+            <DialogTitle>Delete Post</DialogTitle>
             <DialogDescription>
-              Make changes to the post here. Click save when you&apos;re
-              done.
+              Are you sure want to delete the post
             </DialogDescription>
           </DialogHeader>
          
@@ -32,7 +29,7 @@ export function DialogDemo() {
             <DialogClose  asChild>
               <Button variant="outline" className="rounded-full">Cancel</Button>
             </DialogClose>
-            <Button type="submit" className="rounded-full">Save changes</Button>
+            <Button type="submit" onClick={btnClick} className="rounded-full bg-red-600">Delete Post</Button>
           </DialogFooter>
         </DialogContent>
       </form>

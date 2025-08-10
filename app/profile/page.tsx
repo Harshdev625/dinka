@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image"; 
 import Post from "@/components/Posts/Post";
+import { toast } from "sonner";
 export default function Page() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [userposts, setUserPosts] = useState<any[]>([])
   
+
   useEffect(() => {
     (async () => {
       const res = await fetch("/api/v1/getuserdetails", { method: "POST" });
@@ -52,7 +54,25 @@ export default function Page() {
       console.error(err);
     }
   };
-
+   const handleDelete = async (postid:number) => {
+    console.log(postid)
+    const res = await fetch("/api/v1/deletepost", {
+      method:"POST",
+      body:JSON.stringify({postid:postid}),
+      headers:{
+        "Content-Type":"application/json"
+      }
+    })
+    const body = await res.json();
+    if(body.error){
+      toast.error(body.error)
+      return;
+    }
+    if(body.message){
+      toast.success(body.message)
+      setUserPosts((posts)=>posts.filter(e=>e.id!==postid))
+    }
+  }
 
   if (loading) {
     return (
@@ -100,7 +120,7 @@ export default function Page() {
         <div className="flex flex-wrap ">
            <div className='px-2'>
                   {userposts?.map((e:any)=>(
-                    <Post handleLike={handleLike} redir={true} isLiked={e.isLiked} likes={e.likes} id={e.id} key={e.id} title={e.title} visibility={e.visiblity} author={{name: e.author.name, pic: e.author.pic}} createdAt={e.createdAt} isMedia={e.isMedia} mediaUrl={e.mediaurl}  />
+                    <Post  handleDelete={handleDelete} handleLike={handleLike} redir={true} isLiked={e.isLiked} likes={e.likes} id={e.id} key={e.id} title={e.title} visibility={e.visiblity} author={{name: e.author.name, pic: e.author.pic}} createdAt={e.createdAt} isMedia={e.isMedia} mediaUrl={e.mediaurl}  />
                   ))}
               </div>
         </div>

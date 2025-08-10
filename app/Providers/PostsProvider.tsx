@@ -10,6 +10,7 @@ type PostContextType = {
   setIsLoading: (value: boolean) => void;
   isLoading: boolean;
   handleLike: (id: number, whatToDo: boolean) => void;
+  fetchPost: ()=>void;
 };
 const PostContext = createContext<PostContextType | null>(null);
 
@@ -21,20 +22,28 @@ export const usePostContext = () => {
 
 export const PostProvider = ({ children }: { children: React.ReactNode }) => {
   const [posts, setPosts] = useState<PostType[]>([]);
+  const [page, setPage] = useState(0)  
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    (async () => {
+  const fetchPost = async () => {
       try {
-        const response = await fetch("/api/v1/get-posts");
+        const response = await fetch(`/api/v1/get-posts?page=${page}`);
         const data = await response.json();
-        setPosts(data.posts || []);
+        if(!response.ok){
+          setTimeout(fetchPost, 2500);
+          return 
+        }
+        data.posts && setPosts([...posts, ...data.posts ]);
+        setPage(page+1)
       } catch (error) {
         console.error("Failed to fetch posts:", error);
       } finally {
         setIsLoading(false);
       }
-    })();
+    }
+
+  useEffect(() => {
+    fetchPost();
   }, []);
 
   const addPost = (post: PostType) => {
@@ -85,7 +94,7 @@ export const PostProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <PostContext.Provider value={{ posts, addPost, isLoading, setIsLoading, handleLike}}>
+    <PostContext.Provider value={{ posts, addPost, isLoading, setIsLoading, handleLike, fetchPost}}>
       <Toaster/>
       {children}
       <Footer addpost={addPost} setIsLoading={setIsLoading}  />

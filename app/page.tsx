@@ -15,11 +15,10 @@ export default function Page() {
         <Skeleton className="h-4 w-[200px]" />
       </div>
     </div>
-
         </div>
       ) : (
         <div className="flex-grow overflow-y-auto">
-          <Posts  posts={postContext.posts} handleLike={postContext.handleLike}/>
+          <Posts  posts={postContext.posts} handleLike={postContext.handleLike} fetchPost={postContext.fetchPost}/>
         </div>
       )}
     </div>

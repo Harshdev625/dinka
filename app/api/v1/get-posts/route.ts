@@ -4,8 +4,11 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 
 export const GET = async (req: NextRequest) => {
+  const { searchParams } = new URL(req.url);
+  const page = parseInt(searchParams.get('page') || '0');
   const session = await getServerSession(authOptions);
-
+  
+  console.log(page)
   if (!session || !session.user?.email) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -22,6 +25,9 @@ export const GET = async (req: NextRequest) => {
   }
 
   const posts = await prisma.post.findMany({
+    skip:page*5,
+    take:5,
+
     orderBy: {
       createdAt: "desc",
     },

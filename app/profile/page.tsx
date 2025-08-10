@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image"; 
+import Link from "next/link";
 import Post from "@/components/Posts/Post";
 import { toast } from "sonner";
 export default function Page() {
@@ -105,12 +106,16 @@ export default function Page() {
 
         <div className="flex justify-between w-full mt-6 gap-4">
           <div className="flex-1 bg-zinc-100 rounded-lg py-3 text-center">
+          <Link href={"/people"}>
             <div className="text-lg font-medium text-zinc-800">{followersCount ?? 0}</div>
             <div className="text-xs text-zinc-500">Following</div>
+          </Link>
           </div>
           <div className="flex-1 bg-zinc-100 rounded-lg py-3 text-center">
+          <Link href={"/people"}>
             <div className="text-lg font-medium text-zinc-800">{followingCount ?? 0}</div>
             <div className="text-xs text-zinc-500"> Followers</div>
+          </Link>
           </div>
         </div>
       </div>

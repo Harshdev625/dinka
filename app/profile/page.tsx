@@ -129,11 +129,11 @@ export default function Page() {
           </div>
         </div>
       </div>
-        <div className="p-4 sticky top-0 font-bold text-zinc-600 text-xl">
+        <div className="p-4 sticky top-[77px] z-10 bg-zinc-100 my-2 rounded-b-xl font-bold text-zinc-600 text-xl">
           <div>Recent Posts</div>
         </div>
-        <div className="flex flex-wrap ">
-           <div className='px-2 flex flex-col items-center'>
+        <div className="">
+           <div className=''>
             
                   <InfiniteScroll
                     next={fetchPost} // Pass query param to your fetch function if needed
@@ -149,10 +149,10 @@ export default function Page() {
                     pullDownToRefresh
                     pullDownToRefreshThreshold={50}
                     pullDownToRefreshContent={
-                      <h3 style={{ textAlign: "center" }}>&#8595; Pull down to refresh</h3>
+                      <></>
                     }
                     releaseToRefreshContent={
-                      <h3 style={{ textAlign: "center" }}>&#8593; Release to refresh</h3>
+                      <></>
                     }
                   >
                    

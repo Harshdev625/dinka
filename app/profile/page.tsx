@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+// import { useSession } from "next-auth/react"
 import Image from "next/image"; 
 import Link from "next/link";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -14,10 +15,8 @@ export default function Page() {
   const [page, setPage] = useState(0)  
   const router = useSearchParams()
   const [hasMore, setHasMore] = useState(true);
-
   
   const id = router?.get('id');
-  console.log(id)
   
 
 
@@ -144,6 +143,10 @@ export default function Page() {
         <h1 className="mt-4 text-xl font-semibold text-zinc-800 text-center">
           {user?.name || "Unnamed User"}
         </h1>
+      {id && <div className="flex gap-3 m-2 ">
+        <button className="bg-zinc-400 rounded-full text-white text-xs py-1  px-2">Voice Call</button>
+        <button className="bg-zinc-400 rounded-full text-white text-xs py-1  px-2">Video Call</button>
+      </div>}
 
         <p className="mt-1 text-sm text-zinc-500 text-center">{user?.bio || "No bio available."}</p>
 

@@ -1,19 +1,23 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const ws_1 = require("ws");
-const uuid_1 = require("uuid");
-const wss = new ws_1.WebSocketServer({ port: 8080 });
-const connected = [];
-wss.on("connection", (socket) => {
-    const s = socket;
-    s.id = (0, uuid_1.v4)();
-    connected.push(socket);
-    console.log(`Client connected: ${s.id}`);
-    socket.on("message", (message) => {
-        console.log(`Received message from ${s.id}: ${message}`);
-    });
-});
-wss.on("close", (socket) => {
-    const s = socket;
-    console.log(`Client disconnected: ${s.id}`);
-});
+// import WebSocket,{WebSocketServer} from "ws";
+// import { v4 as uuidv4 } from "uuid";
+// const wss = new WebSocketServer({ port: 8080 });
+// interface Socket extends WebSocket {
+//     id? : string
+//     userid? : string
+// }
+// const connected:WebSocket[] = [] 
+// wss.on("connection", (socket: WebSocket) => {
+//     const s = socket as Socket
+//     s.id = uuidv4()
+//     connected.push(socket)
+//     console.log(`Client connected: ${s.id}`);
+//     socket.on("message", (message) => {
+//         console.log(`Received message from ${s.id}: ${message}`);      
+//     })
+//     console.log(connected)
+// })
+// wss.on("close", (socket: WebSocket) => {
+//     const s = socket as Socket
+//     console.log(`Client disconnected: ${s.id}`);
+// })

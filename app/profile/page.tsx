@@ -4,6 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image"; 
 import Link from "next/link";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useSearchParams } from 'next/navigation';
 import Post from "@/components/Posts/Post";
 import { toast } from "sonner";
 export default function Page() {
@@ -11,33 +12,65 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [userposts, setUserPosts] = useState<any[]>([])
   const [page, setPage] = useState(0)  
+  const router = useSearchParams()
+  const [hasMore, setHasMore] = useState(true);
+
+  
+  const id = router?.get('id');
+  console.log(id)
+  
+
+
   useEffect(() => {
     (async () => {
-      const res = await fetch("/api/v1/getuserdetails", { method: "POST" });
+      const res = await fetch("/api/v1/getuserdetails", { method: "POST", body:JSON.stringify({
+        id:id
+      }) });
       const data = await res.json();
       if (!data.error) {
         setData(data);
         setLoading(false);
       } 
     })();
-  }, []);
+  }, [id]);
 
-   const fetchPost = async () => {
-      try {
-        const response = await fetch(`/api/v1/getuserposts?page=${page}`,{ method: "POST" });
-        const data = await response.json();
-        if(!response.ok){
-          setTimeout(fetchPost, 2500);
-          return 
-        }
-        data.posts && setUserPosts([...userposts, ...data.posts ]);
-        setPage(page+1)
-      } catch (error) {
-        console.error("Failed to fetch posts:", error);
-      } finally {
-        setLoading(false);
-      }
+   const fetchPost = async (isRefresh: boolean = false) => {
+  try {
+    let currentPage = isRefresh ? 0 : page;
+
+    if (isRefresh) {
+      setUserPosts([]);
+      setPage(0);
+      setLoading(true);
     }
+
+    const response = await fetch(`/api/v1/getuserposts?page=${currentPage}`, {
+      method: "POST",
+      body: JSON.stringify({ id }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setTimeout(() => fetchPost(isRefresh), 2500); // retry on fail
+      return;
+    }
+
+    if (data.posts && data.posts.length > 0) {
+      setUserPosts((prev) => [...(isRefresh ? [] : prev), ...data.posts]);
+      setPage(currentPage + 1);
+    } else {
+      // No more posts
+      setHasMore(false);
+    }
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const handleLike = async (id: number, whatToDo: boolean) => {
     try {
@@ -82,8 +115,8 @@ export default function Page() {
     }
   }
   useEffect(()=>{
-    fetchPost()
-  },[])
+    fetchPost(true)
+  },[id])
 
   if (loading) {
     return (
@@ -136,30 +169,40 @@ export default function Page() {
            <div className=''>
             
                   <InfiniteScroll
-                    next={fetchPost} // Pass query param to your fetch function if needed
-                    dataLength={userposts.length}
-                    hasMore={true} 
-                    loader={<h4>Loading...</h4>}
-                    endMessage={
-                      <p style={{ textAlign: "center" }}>
-                        <b>You have seen it all</b>
-                      </p>
-                    }
-                    refreshFunction={() => {}}
-                    pullDownToRefresh
-                    pullDownToRefreshThreshold={50}
-                    pullDownToRefreshContent={
-                      <></>
-                    }
-                    releaseToRefreshContent={
-                      <></>
-                    }
-                  >
-                   
-                  {userposts?.map((e:any)=>(
-                    <Post  handleDelete={handleDelete} handleLike={handleLike} redir={true} isLiked={e.isLiked} likes={e.likes} id={e.id} key={e.id} title={e.title} visibility={e.visiblity} author={{name: e.author.name, pic: e.author.pic}} createdAt={e.createdAt} isMedia={e.isMedia} mediaUrl={e.mediaurl}  />
-                  ))}
-                  </InfiniteScroll>
+  next={() => fetchPost(false)}
+  dataLength={userposts.length}
+  hasMore={hasMore} // depends on state
+  loader={<h4>Loading...</h4>}
+  endMessage={
+    <p style={{ textAlign: "center" }}>
+      <b>You have seen it all</b>
+    </p>
+  }
+  refreshFunction={() => fetchPost(true)}
+  pullDownToRefresh
+  pullDownToRefreshThreshold={50}
+  pullDownToRefreshContent={<></>}
+  releaseToRefreshContent={<></>}
+>
+  {userposts.map((e: any) => (
+    <Post
+      handleDelete={handleDelete}
+      handleLike={handleLike}
+      redir={true}
+      isLiked={e.isLiked}
+      likes={e.likes}
+      id={e.id}
+      key={e.id}
+      title={e.title}
+      visibility={e.visibility} // fixed typo
+      author={{ name: e.author.name, pic: e.author.pic }}
+      createdAt={e.createdAt}
+      isMedia={e.isMedia}
+      mediaUrl={e.mediaurl}
+    />
+  ))}
+</InfiniteScroll>
+
               </div>
         </div>
     </div>

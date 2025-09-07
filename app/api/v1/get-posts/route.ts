@@ -8,7 +8,7 @@ export const GET = async (req: NextRequest) => {
   const page = parseInt(searchParams.get('page') || '0');
   const session = await getServerSession(authOptions);
   
-  console.log(page)
+  
   if (!session || !session.user?.email) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -54,7 +54,6 @@ export const GET = async (req: NextRequest) => {
       },
     },
   });
-
   const postsWithLikeStatus = posts.map((post) => ({
     ...post,
     isLiked: post.likes.length > 0, 

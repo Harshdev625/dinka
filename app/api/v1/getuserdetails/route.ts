@@ -5,16 +5,18 @@ import prisma from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
   const session: any = await getServerSession(authOptions);
-
+  
   if (!session || !session.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  const {id} = await req.json();
 
   const userId = session.user.id;
 
   // Step 1: Get user details, followers and following relations
   const user = await prisma.user.findUnique({
-    where: { id: userId },
+    where: { id: id?id:userId },
     select: {
       id: true,
       name: true,

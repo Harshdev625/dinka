@@ -3,6 +3,8 @@ import prisma from "@/lib/prisma";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 export const POST = async (req: NextRequest) => {
+  
+  const body = await req.json();
   const session:any = await getServerSession(authOptions);
   const { searchParams } = new URL(req.url);
   const page = parseInt(searchParams.get('page') || '0');
@@ -14,7 +16,7 @@ export const POST = async (req: NextRequest) => {
     skip:page*5,
     take:5,
     where:{
-        authorId:id
+        authorId:body.id?body.id:id
     },
     orderBy: {
       createdAt: "desc",

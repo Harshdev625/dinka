@@ -2,9 +2,6 @@
 import Post from './Post'
 import InfiniteScroll from "react-infinite-scroll-component";
 export default function Posts({ posts, handleLike, fetchPost }: {posts: any, handleLike: any, fetchPost: any}) {
-  
-  console.log(posts);
-
   return (
     <div className='px-2'>
       <InfiniteScroll

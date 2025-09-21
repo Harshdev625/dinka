@@ -2,6 +2,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { UsersRound } from 'lucide-react'
+import { MessageCircleIcon } from 'lucide-react'
 import CreatePost from './Posts/CreatePost'
 import { usePathname } from 'next/navigation'
 import app from '@/dinka-config'
@@ -26,10 +27,9 @@ export default function footer({ addpost, setIsLoading }: any) {
                     <div className="relative flex h-full items-center gap-1.5 rounded-full opacity-50 hover:opacity-100 tablet:pl-3 px-1.5 py-2">
                         <CreatePost addpost={addpost} setIsLoading={setIsLoading} />
                     </div>
-                    <Link className={`relative flex h-full items-center gap-1.5 rounded-full px-4 ${path === '/activity' ? "opacity-100" : "opacity-50"} hover:opacity-100 tablet:pl-3`} href="/activity">
-                        <div className="relative flex h-7 w-7 items-center justify-center tablet:h-6 tablet:w-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" className="h-full w-full"><path fill="currentColor" fillRule="evenodd" d="M3.8 9.603a8.248 8.248 0 0 1 16.399 0l.674 6.18A2 2 0 0 1 18.885 18h-2.043a5.002 5.002 0 0 1-9.685 0H5.115a2 2 0 0 1-1.988-2.217zM9.273 18a3 3 0 0 0 5.456 0zM12 4.25a6.25 6.25 0 0 0-6.21 5.57L5.114 16h13.77l-.674-6.18A6.25 6.25 0 0 0 12 4.25" clipRule="evenodd"></path>
-                            </svg></div><span className="sr-only">Activity</span></Link>
+                    
+                    <Link className={`relative text-2xl flex h-full items-center gap-1.5 rounded-full px-4 ${path === '/chats' ? "opacity-100" : "opacity-50"} hover:opacity-100 tablet:pl-3`} href="/chats">
+                        <MessageCircleIcon strokeWidth={2.5} /><span className="sr-only">Chats</span></Link>
                     <Link href={"/profile"}>
                         <button className="relative flex h-full items-center gap-1.5 rounded-full px-4 hover:opacity-100 tablet:pl-3 opacity-100">
                             <div className={path === '/profile' ? "opacity-100" : "opacity-50"} >

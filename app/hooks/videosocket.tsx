@@ -23,7 +23,7 @@ useEffect(() => {
 }, [remoteUser]);
   useEffect(() => {
     if (session?.user?.id) {
-      const ws = new WebSocket(`ws://${process.env.NEXT_PUBLIC_BACKEND}`);
+      const ws = new WebSocket(`${process.env.NEXT_PUBLIC_BACKEND}`);
       const pc = new RTCPeerConnection({
         iceServers: [
           { urls: "stun:stun.l.google.com:19302" }

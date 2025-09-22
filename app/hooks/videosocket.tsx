@@ -1,5 +1,5 @@
 "use client"
-import React, { useState ,useEffect, useRef, useContext, createContext } from "react";
+import React, { useState, useEffect, useRef, useContext, createContext } from "react";
 import { useSession } from "next-auth/react";
 
 const SocketContext = createContext<any>(null)
@@ -29,9 +29,40 @@ export function SocketProvider({ children }: any) {
   useEffect(() => {
     if (session?.user?.id) {
       const ws = new WebSocket(`${process.env.NEXT_PUBLIC_BACKEND}`);
-      const pc = new RTCPeerConnection({
-        iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
-      });
+    const pc = new RTCPeerConnection({
+  iceServers: [
+    // Google STUN
+    { urls: "stun:stun.l.google.com:19302" },
+    { urls: "stun:stun1.l.google.com:19302" },
+    { urls: "stun:stun2.l.google.com:19302" },
+    { urls: "stun:stun3.l.google.com:19302" },
+    { urls: "stun:stun4.l.google.com:19302" },
+
+    // Mozilla
+    { urls: "stun:stun.services.mozilla.com" },
+
+    // Twilio’s free STUN
+    { urls: "stun:global.stun.twilio.com:3478?transport=udp" },
+
+    // TURN (relay – required for mobile/symmetric NAT)
+    {
+      urls: "turn:relay.metered.ca:80",
+      username: "openai",
+      credential: "openai123",
+    },
+    {
+      urls: "turn:relay.metered.ca:443",
+      username: "openai",
+      credential: "openai123",
+    },
+    {
+      urls: "turn:relay.metered.ca:443?transport=tcp",
+      username: "openai",
+      credential: "openai123",
+    },
+  ],
+});
+
       setPeerConection(pc);
       ws.onopen = () => {
         ws.send(JSON.stringify({ type: "register", userID: session.user.id }));
@@ -39,7 +70,7 @@ export function SocketProvider({ children }: any) {
       };
 
       pc.onicecandidate = (event) => {
-        console.log("Ice Sent", remoteUserRef.current )
+        console.log("Ice Sent", remoteUserRef.current)
         if (event.candidate) {
           ws.send(
             JSON.stringify({
@@ -89,7 +120,7 @@ export function SocketProvider({ children }: any) {
           console.log("Call answered by:", message.fromUserID);
           pc?.setRemoteDescription(new RTCSessionDescription(message.answer));
         } else if (message.type === "ice_candidate") {
-          console.log("Received ICE candidate from:", message.fromUserID, message.candidate);
+          console.log("Received ICE candidate from:", message.fromUserID, message);
           if (pc?.remoteDescription) {
             pc?.addIceCandidate(new RTCIceCandidate(message.candidate)).catch(err => console.error(err));
           } else {

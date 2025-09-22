@@ -53,6 +53,11 @@ export function SocketProvider({ children }: any) {
       username: "openai",
       credential: "openai123",
     },
+     {
+      urls: "turn:relay1.expressturn.com:3478",
+      username: "efh73s",
+      credential: "dqwd9QMS8Ne8grmB",
+    },
     {
       urls: "turn:relay.metered.ca:443?transport=tcp",
       username: "openai",

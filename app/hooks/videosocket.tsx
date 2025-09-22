@@ -41,8 +41,6 @@ export function SocketProvider({ children }: any) {
     // Mozilla
     { urls: "stun:stun.services.mozilla.com" },
 
-    // Twilio’s free STUN
-    { urls: "stun:global.stun.twilio.com:3478?transport=udp" },
 
     // TURN (relay – required for mobile/symmetric NAT)
     {

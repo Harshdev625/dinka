@@ -33,7 +33,7 @@ It allows users to share posts, interact through likes and comments, and connect
 ```bash
 # Fork this repository
 # Clone your fork
-git clone https://github.com/<your-username>/dinka.git
+git clone https://github.com/nios-x/dinka
 
 cd dinka
 

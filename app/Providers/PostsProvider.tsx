@@ -1,9 +1,9 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useRef } from "react";
 import type { PostType } from "@/lib/types";
 import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
-import { toast } from "sonner";
+
 type PostContextType = {
   posts: PostType[];
   addPost: (post: PostType) => void;
@@ -68,31 +68,55 @@ export const PostProvider = ({ children }: { children: React.ReactNode }) => {
       
   //   }
   // }
-  const handleLike = async (id: number, whatToDo: boolean) => {
-    try {
-      const res = await fetch(`/api/v1/togglelike`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, whatToDo }),
-      });
-      if (!res.ok) throw new Error("Like failed");
+  
+  const useDebouncedLike = (delay = 300) => {
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-      setPosts((prev) =>
-        prev.map((e) =>
-          e.id === id
-            ? {
-                ...e,
-                isLiked: whatToDo,
-                likes: Math.max(0, e.likes + (whatToDo ? 1 : -1)),
-              }
-            : e
-        )
-      );
-    } catch (err) {
-      console.error(err);
-    }
+  const handleLike = async (id: number, whatToDo: boolean) => {
+    // Clear previous timeout if any
+    setPosts((prev) =>
+          prev.map((e) =>
+            e.id === id
+              ? {
+                  ...e,
+                  isLiked: whatToDo,
+                  likes: Math.max(0, e.likes + (whatToDo ? 1 : -1)),
+                }
+              : e
+          )
+        );
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(async () => {
+      try {
+        
+
+        const res = await fetch(`/api/v1/togglelike`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id, whatToDo }),
+        });
+
+        if (!res.ok) throw new Error("Like failed");
+      } catch (err) {
+        // Revert state if API fails
+        setPosts((prev) =>
+          prev.map((e) =>
+            e.id === id
+              ? {
+                  ...e,
+                  isLiked: !whatToDo,
+                  likes: Math.max(0, e.likes + (whatToDo ? -1 : 1)),
+                }
+              : e
+          )
+        );
+      }
+    }, delay);
   };
 
+  return handleLike;
+};
+  const handleLike = useDebouncedLike(800);
   return (
     <PostContext.Provider value={{ posts, addPost, isLoading, setIsLoading, handleLike, fetchPost}}>
       <Toaster/>

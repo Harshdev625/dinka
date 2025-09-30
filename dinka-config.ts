@@ -7,6 +7,6 @@ const app = {
         "forgot-your-password":"forgot-your-password",
         "privacy-policy":"privacy-policy",
     },
-    footer:['/',"/activity","/profile","/people"]
+    footer:['/',"/chats","/profile","/people"]
 }
 export default app

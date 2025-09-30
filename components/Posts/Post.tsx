@@ -9,6 +9,7 @@ import {
   Globe,
   Users,
 } from "lucide-react";
+
 import share from "@/components/Posts/sharecall";
 import Link from "next/link";
 import Image from "next/image";
@@ -123,26 +124,26 @@ export default function Post({
           aria-label="Love"
           className={`${
             isLiked
-              ? "text-white bg-rose-500"
-              : "text-rose-400 bg-zinc-100"
-          } transition gap-1 py-2 px-6 rounded-full w-1/3 flex justify-center items-center`}
+              ? "text-white bg-[linear-gradient(45deg,red,#ff00bc)]"
+              : "text-rose-500 bg-zinc-100"
+          } transition  shadow-xl  cursor-pointer active:scale-105 gap-1 py-3 px-6 rounded-full w-1/3 flex justify-center items-center`}
         >
-          <Heart className="w-5 h-5" strokeWidth={2.4} />
-          <span className="text-sm">{likes ?? ""}</span>
+          <Heart fill="white" className="w-5 h-5" strokeWidth={2.4} />
+          <span className="text-sm">{likes ?likes :""}</span>
         </button>
 
         <Link
           href={`/postid/${id}`}
-          className="text-blue-500 transition bg-zinc-100 py-2 px-6 rounded-full w-1/3 flex justify-center"
+          className="text-blue-500 shadow-md active:text-white active:bg-[linear-gradient(345deg,cyan,blue)] transition bg-zinc-100 py-3 px-6 rounded-full w-1/3 flex justify-center"
         >
-          <MessageCircle className="w-5 h-5" strokeWidth={2.4} />
+          <MessageCircle fill={"white"} className="w-5 h-5" strokeWidth={2.4} />
         </Link>
 
         <button
           onClick={() => share(id)}
           type="button"
           aria-label="Share"
-          className="text-purple-500 transition bg-zinc-100 py-2 px-6 rounded-full w-1/3 flex justify-center"
+          className="text-purple-500 shadow-md active:text-white active:bg-[linear-gradient(345deg,violet,purple)]  transition bg-zinc-100 py-3 px-6 rounded-full w-1/3 flex justify-center"
         >
           <Share2 className="w-5 h-5" strokeWidth={2.4} />
         </button>

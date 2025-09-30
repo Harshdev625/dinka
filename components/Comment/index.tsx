@@ -24,8 +24,6 @@ export default function index({comments,id}:any) {
                 ॱ {formatDistanceToNow(e.createdAt) } ago
               </div>
             </div>
-
-
           </div>
             <div className='p-2 text-xs'>{e.content}</div>
         </div>)}

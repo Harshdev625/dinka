@@ -101,7 +101,7 @@ CREATE TABLE "SeenPost" (
 
 -- CreateTable
 CREATE TABLE "Chats" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "fromId" TEXT NOT NULL,
     "toId" TEXT NOT NULL,
     "type" "ChatType" NOT NULL,

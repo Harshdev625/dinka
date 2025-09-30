@@ -129,7 +129,7 @@ model SeenPost {
 }
 
 model Chats {
-  id              BigInt   @id @default(autoincrement())
+  id              Int      @id @default(autoincrement())
   fromId          String
   toId            String
   type            ChatType

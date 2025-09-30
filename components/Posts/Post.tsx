@@ -46,16 +46,19 @@ export default function Post({
   handleDelete,
   isLiked,
   redir,
+  authorId,
   hidedel=true,
   falserounded,
-}: PostProps & {hidedel?:boolean, handleLike: any; redir?: boolean }) {
+}: PostProps & {hidedel?:boolean, handleLike: any; redir?: boolean;authorId:string }) {
   const visibilityIcon = {
     Public: <Globe className="w-4 h-4 text-blue-500" />,
     Followers: <Users className="w-4 h-4 text-green-500" />,
   }[visibility];
+  console.log(author)
   return (
     <div className="rounded-3xl mb-5 border-zinc-200 border p-4 w-full max-w-xl mx-auto space-y-2 transition-all duration-300 bg-background shadow-xs dark:bg-input/30 dark:border-input">
       <div className="flex items-start justify-between">
+          <Link href={`/profile?id=${authorId}`}>
         <div className="w-max flex items-center">
           <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0">
             <Toaster />
@@ -67,7 +70,7 @@ export default function Post({
               }
               fill
               style={{ objectFit: "cover",  }}
-            />
+              />
           </div>
           <div className="flex-1 flex flex-col px-2 pb-2">
             <div className="font-semibold text-lg text-zinc-700">
@@ -80,6 +83,7 @@ export default function Post({
             </div>
           </div>
         </div>
+              </Link>
 
         <div className="flex items-center space-x-1 text-xs text-zinc-500 px-5 py-3">
           {visibilityIcon}
@@ -125,7 +129,7 @@ export default function Post({
           className={`${
             isLiked
               ? "text-white bg-[linear-gradient(45deg,red,#ff00bc)]"
-              : "text-rose-500 bg-zinc-100"
+              : "text-rose-500 bg-zinc-100" 
           } transition  shadow-xl  cursor-pointer active:scale-105 gap-1 py-3 px-6 rounded-full w-1/3 flex justify-center items-center`}
         >
           <Heart fill="white" className="w-5 h-5" strokeWidth={2.4} />

@@ -23,8 +23,7 @@ export const PostSchema = z.object({
   isMedia: z.boolean(),                       // Boolean
   mediaurl: z.string().nullable().optional(), // String? => nullable
   createdAt: z.string(),  
-  isLiked: z.boolean(),               // DateTime @default(now())
-
+  isLiked: z.boolean(),      
   // Related fields (not for validation input, useful for output shape)
         // User[]
     // Comment[]

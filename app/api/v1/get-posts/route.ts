@@ -35,7 +35,8 @@ export const GET = async (req: NextRequest) => {
       author: {
         select: {
           name: true,
-          pic:true
+          pic:true,
+          id:true
         },
       },
       likes: {

@@ -144,7 +144,11 @@ export default function Page() {
         <h1 className="mt-4 text-xl font-semibold text-zinc-800 text-center">
           {user?.name || "Unnamed User"}
         </h1>
+
       {id && <div className="flex gap-3 m-2 ">
+          <Link href={`/chat?id=${id}`}>
+            Message
+          </Link>
         <button onClick={()=>{ createCall(id) }} className="bg-zinc-400 rounded-full text-white text-xs py-1  px-2">Voice Call</button>
         <button onClick={()=>{ createCall(id) }} className="bg-zinc-400 rounded-full text-white text-xs py-1  px-2">Video Call</button>
       </div>}
@@ -197,6 +201,7 @@ export default function Page() {
       likes={e.likes}
       id={e.id}
       key={e.id}
+      authorId={id?id:""}
       title={e.title}
       visibility={e.visibility} // fixed typo
       author={{ name: e.author.name, pic: e.author.pic }}

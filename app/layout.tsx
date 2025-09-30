@@ -23,11 +23,11 @@ export default function RootLayout({
               <div className="w-screen min-h-screen relative">
               <NavBar/>
 
-              <div className="py-14"></div>
+              <div className="py-16"></div>
               <PostProvider>
                 <SocketProvider>
 
-              {children}
+                  {children}
                 </SocketProvider>
               </PostProvider>
               </div>

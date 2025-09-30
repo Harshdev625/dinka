@@ -39,6 +39,7 @@ export default function Posts({ posts, handleLike, fetchPost }: {posts: any, han
             createdAt={e.createdAt}
             isMedia={e.isMedia}
             mediaUrl={e.mediaurl}
+            authorId={e.authorId}
           />
         ))}
       </InfiniteScroll>

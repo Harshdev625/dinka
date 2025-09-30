@@ -9864,11 +9864,11 @@ export namespace Prisma {
   }
 
   export type ChatsSumAggregateOutputType = {
-    id: bigint | null
+    id: number | null
   }
 
   export type ChatsMinAggregateOutputType = {
-    id: bigint | null
+    id: number | null
     fromId: string | null
     toId: string | null
     type: $Enums.ChatType | null
@@ -9881,7 +9881,7 @@ export namespace Prisma {
   }
 
   export type ChatsMaxAggregateOutputType = {
-    id: bigint | null
+    id: number | null
     fromId: string | null
     toId: string | null
     type: $Enums.ChatType | null
@@ -10043,7 +10043,7 @@ export namespace Prisma {
   }
 
   export type ChatsGroupByOutputType = {
-    id: bigint
+    id: number
     fromId: string
     toId: string
     type: $Enums.ChatType
@@ -10153,7 +10153,7 @@ export namespace Prisma {
       to: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: bigint
+      id: number
       fromId: string
       toId: string
       type: $Enums.ChatType
@@ -10588,7 +10588,7 @@ export namespace Prisma {
    * Fields of the Chats model
    */
   interface ChatsFieldRefs {
-    readonly id: FieldRef<"Chats", 'BigInt'>
+    readonly id: FieldRef<"Chats", 'Int'>
     readonly fromId: FieldRef<"Chats", 'String'>
     readonly toId: FieldRef<"Chats", 'String'>
     readonly type: FieldRef<"Chats", 'ChatType'>
@@ -11806,7 +11806,7 @@ export namespace Prisma {
     AND?: ChatsWhereInput | ChatsWhereInput[]
     OR?: ChatsWhereInput[]
     NOT?: ChatsWhereInput | ChatsWhereInput[]
-    id?: BigIntFilter<"Chats"> | bigint | number
+    id?: IntFilter<"Chats"> | number
     fromId?: StringFilter<"Chats"> | string
     toId?: StringFilter<"Chats"> | string
     type?: EnumChatTypeFilter<"Chats"> | $Enums.ChatType
@@ -11836,7 +11836,7 @@ export namespace Prisma {
   }
 
   export type ChatsWhereUniqueInput = Prisma.AtLeast<{
-    id?: bigint | number
+    id?: number
     AND?: ChatsWhereInput | ChatsWhereInput[]
     OR?: ChatsWhereInput[]
     NOT?: ChatsWhereInput | ChatsWhereInput[]
@@ -11875,7 +11875,7 @@ export namespace Prisma {
     AND?: ChatsScalarWhereWithAggregatesInput | ChatsScalarWhereWithAggregatesInput[]
     OR?: ChatsScalarWhereWithAggregatesInput[]
     NOT?: ChatsScalarWhereWithAggregatesInput | ChatsScalarWhereWithAggregatesInput[]
-    id?: BigIntWithAggregatesFilter<"Chats"> | bigint | number
+    id?: IntWithAggregatesFilter<"Chats"> | number
     fromId?: StringWithAggregatesFilter<"Chats"> | string
     toId?: StringWithAggregatesFilter<"Chats"> | string
     type?: EnumChatTypeWithAggregatesFilter<"Chats"> | $Enums.ChatType
@@ -12392,7 +12392,6 @@ export namespace Prisma {
   }
 
   export type ChatsCreateInput = {
-    id?: bigint | number
     type: $Enums.ChatType
     mediaUrl?: string | null
     message?: string | null
@@ -12405,7 +12404,7 @@ export namespace Prisma {
   }
 
   export type ChatsUncheckedCreateInput = {
-    id?: bigint | number
+    id?: number
     fromId: string
     toId: string
     type: $Enums.ChatType
@@ -12418,7 +12417,6 @@ export namespace Prisma {
   }
 
   export type ChatsUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
     type?: EnumChatTypeFieldUpdateOperationsInput | $Enums.ChatType
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12431,7 +12429,7 @@ export namespace Prisma {
   }
 
   export type ChatsUncheckedUpdateInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    id?: IntFieldUpdateOperationsInput | number
     fromId?: StringFieldUpdateOperationsInput | string
     toId?: StringFieldUpdateOperationsInput | string
     type?: EnumChatTypeFieldUpdateOperationsInput | $Enums.ChatType
@@ -12444,7 +12442,7 @@ export namespace Prisma {
   }
 
   export type ChatsCreateManyInput = {
-    id?: bigint | number
+    id?: number
     fromId: string
     toId: string
     type: $Enums.ChatType
@@ -12457,7 +12455,6 @@ export namespace Prisma {
   }
 
   export type ChatsUpdateManyMutationInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
     type?: EnumChatTypeFieldUpdateOperationsInput | $Enums.ChatType
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12468,7 +12465,7 @@ export namespace Prisma {
   }
 
   export type ChatsUncheckedUpdateManyInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    id?: IntFieldUpdateOperationsInput | number
     fromId?: StringFieldUpdateOperationsInput | string
     toId?: StringFieldUpdateOperationsInput | string
     type?: EnumChatTypeFieldUpdateOperationsInput | $Enums.ChatType
@@ -13073,17 +13070,6 @@ export namespace Prisma {
     postId?: SortOrder
   }
 
-  export type BigIntFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
-  }
-
   export type EnumChatTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.ChatType | EnumChatTypeFieldRefInput<$PrismaModel>
     in?: $Enums.ChatType[] | ListEnumChatTypeFieldRefInput<$PrismaModel>
@@ -13141,22 +13127,6 @@ export namespace Prisma {
 
   export type ChatsSumOrderByAggregateInput = {
     id?: SortOrder
-  }
-
-  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
   }
 
   export type EnumChatTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -13901,14 +13871,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type BigIntFieldUpdateOperationsInput = {
-    set?: bigint | number
-    increment?: bigint | number
-    decrement?: bigint | number
-    multiply?: bigint | number
-    divide?: bigint | number
-  }
-
   export type EnumChatTypeFieldUpdateOperationsInput = {
     set?: $Enums.ChatType
   }
@@ -14196,17 +14158,6 @@ export namespace Prisma {
     _max?: NestedEnumRelationshipFilter<$PrismaModel>
   }
 
-  export type NestedBigIntFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
-  }
-
   export type NestedEnumChatTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.ChatType | EnumChatTypeFieldRefInput<$PrismaModel>
     in?: $Enums.ChatType[] | ListEnumChatTypeFieldRefInput<$PrismaModel>
@@ -14217,22 +14168,6 @@ export namespace Prisma {
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
   }
 
   export type NestedEnumChatTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -14254,7 +14189,6 @@ export namespace Prisma {
   }
 
   export type ChatsCreateWithoutFromInput = {
-    id?: bigint | number
     type: $Enums.ChatType
     mediaUrl?: string | null
     message?: string | null
@@ -14266,7 +14200,7 @@ export namespace Prisma {
   }
 
   export type ChatsUncheckedCreateWithoutFromInput = {
-    id?: bigint | number
+    id?: number
     toId: string
     type: $Enums.ChatType
     mediaUrl?: string | null
@@ -14288,7 +14222,6 @@ export namespace Prisma {
   }
 
   export type ChatsCreateWithoutToInput = {
-    id?: bigint | number
     type: $Enums.ChatType
     mediaUrl?: string | null
     message?: string | null
@@ -14300,7 +14233,7 @@ export namespace Prisma {
   }
 
   export type ChatsUncheckedCreateWithoutToInput = {
-    id?: bigint | number
+    id?: number
     fromId: string
     type: $Enums.ChatType
     mediaUrl?: string | null
@@ -14520,7 +14453,7 @@ export namespace Prisma {
     AND?: ChatsScalarWhereInput | ChatsScalarWhereInput[]
     OR?: ChatsScalarWhereInput[]
     NOT?: ChatsScalarWhereInput | ChatsScalarWhereInput[]
-    id?: BigIntFilter<"Chats"> | bigint | number
+    id?: IntFilter<"Chats"> | number
     fromId?: StringFilter<"Chats"> | string
     toId?: StringFilter<"Chats"> | string
     type?: EnumChatTypeFilter<"Chats"> | $Enums.ChatType
@@ -16155,7 +16088,7 @@ export namespace Prisma {
   }
 
   export type ChatsCreateManyFromInput = {
-    id?: bigint | number
+    id?: number
     toId: string
     type: $Enums.ChatType
     mediaUrl?: string | null
@@ -16167,7 +16100,7 @@ export namespace Prisma {
   }
 
   export type ChatsCreateManyToInput = {
-    id?: bigint | number
+    id?: number
     fromId: string
     type: $Enums.ChatType
     mediaUrl?: string | null
@@ -16222,7 +16155,6 @@ export namespace Prisma {
   }
 
   export type ChatsUpdateWithoutFromInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
     type?: EnumChatTypeFieldUpdateOperationsInput | $Enums.ChatType
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16234,7 +16166,7 @@ export namespace Prisma {
   }
 
   export type ChatsUncheckedUpdateWithoutFromInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    id?: IntFieldUpdateOperationsInput | number
     toId?: StringFieldUpdateOperationsInput | string
     type?: EnumChatTypeFieldUpdateOperationsInput | $Enums.ChatType
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16246,7 +16178,7 @@ export namespace Prisma {
   }
 
   export type ChatsUncheckedUpdateManyWithoutFromInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    id?: IntFieldUpdateOperationsInput | number
     toId?: StringFieldUpdateOperationsInput | string
     type?: EnumChatTypeFieldUpdateOperationsInput | $Enums.ChatType
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16258,7 +16190,6 @@ export namespace Prisma {
   }
 
   export type ChatsUpdateWithoutToInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
     type?: EnumChatTypeFieldUpdateOperationsInput | $Enums.ChatType
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     message?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16270,7 +16201,7 @@ export namespace Prisma {
   }
 
   export type ChatsUncheckedUpdateWithoutToInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    id?: IntFieldUpdateOperationsInput | number
     fromId?: StringFieldUpdateOperationsInput | string
     type?: EnumChatTypeFieldUpdateOperationsInput | $Enums.ChatType
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16282,7 +16213,7 @@ export namespace Prisma {
   }
 
   export type ChatsUncheckedUpdateManyWithoutToInput = {
-    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    id?: IntFieldUpdateOperationsInput | number
     fromId?: StringFieldUpdateOperationsInput | string
     type?: EnumChatTypeFieldUpdateOperationsInput | $Enums.ChatType
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null

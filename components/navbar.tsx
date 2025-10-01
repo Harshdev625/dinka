@@ -109,7 +109,8 @@
         >
           <div className="flex flex-col justify-between p-6 h-full bg-zinc-200 text-2xl rounded-l-3xl relative">
             <div>
-              <div className="text-5xl font-bold px-3 mt-24 text-zinc-500">Settings</div>
+              <div className="text-5xl z-40 font-bold px-3 mt-16 text-zinc-500">Settings</div>
+              
               <hr className="m-3" />
 
               <div className="relative">
@@ -137,16 +138,17 @@
               </div>
             </div>
 
-            {/* Footer */}
-            <div className="text-sm px-3 text-zinc-500 space-y-2 mt-10">
-              <div className="flex items-center hover:text-zinc-800 cursor-pointer">
-                <FileTextIcon className="w-4 h-4 mr-2" />
-                Terms & Conditions
-              </div>
-              <div className="flex items-center hover:text-zinc-800 cursor-pointer">
-                <ShieldCheckIcon className="w-4 h-4 mr-2" />
-                Privacy Policy
-              </div>
+            <div className="absolute bottom-18 text-sm px-3 text-zinc-500 mt-0 flex gap-2 justify-center items-center">
+              <button className="flex items-center hover:text-zinc-800 cursor-pointer text-left">
+              <FileTextIcon className="w-4 h-4 mr-2" />
+              Terms & Conditions
+              </button>
+
+              <button className="flex items-center hover:text-zinc-800 cursor-pointer text-left">
+              <ShieldCheckIcon className="w-4 h-4 mr-2" />
+              Privacy Policy
+              </button>
+
               <div className="text-center text-xs text-zinc-400 mt-3">Version 1.2</div>
             </div>
           </div>

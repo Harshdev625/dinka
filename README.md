@@ -45,3 +45,5 @@ cp .env.example .env
 
 # Run the development server
 npm run dev
+
+https://localhost:3000/login

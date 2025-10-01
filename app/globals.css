@@ -126,22 +126,28 @@
   }
 }
 
-.logo{
+.logo {
   font-family: logo;
   background: linear-gradient(270deg, rgb(150, 0, 192), rgb(0, 170, 204));
-   -webkit-background-clip: text;
+  -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.slider{
+.slider {
   transform: translateX(-100vw);
   transition: transform 0.3s ease-in-out;
 }
-.slider-off{
+.slider-off {
   transform: translateX(0vw);
   transition: transform 0.3s ease-in-out;
 }
-*{
+* {
   font-family: poppins;
   user-select: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

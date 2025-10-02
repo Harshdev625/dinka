@@ -6,6 +6,7 @@ import { PostProvider } from "@/app/Providers/PostsProvider";
 import { usePostContext } from "@/app/Providers/PostsProvider";
 import SessionProvider from "@/app/Providers/SessionProvider";
 import { SocketProvider } from "@/app/hooks/videosocket";
+import { ThemeProvider } from "@/app/Providers/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Dinka - To Be Social",
@@ -24,17 +25,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="bg-zinc-50 antialiased min-h-screen">
-        <SessionProvider>
-          <div className="w-screen min-h-screen relative">
-            <NavBar />
-            <div className="py-16"></div>
-            <PostProvider>
-              <SocketProvider>{children}</SocketProvider>
-            </PostProvider>
-          </div>
-        </SessionProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className="bg-zinc-50 dark:bg-zinc-900 antialiased min-h-screen">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SessionProvider>
+            <div className="w-screen min-h-screen relative">
+              <NavBar />
+              <div className="py-16"></div>
+              <PostProvider>
+                <SocketProvider>{children}</SocketProvider>
+              </PostProvider>
+            </div>
+          </SessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

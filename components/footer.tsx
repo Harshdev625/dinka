@@ -5,9 +5,13 @@ import { UsersRound } from 'lucide-react'
 import { MessageCircleIcon } from 'lucide-react'
 import CreatePost from './Posts/CreatePost'
 import { usePathname } from 'next/navigation'
+
 import app from '@/dinka-config'
+import { useSession } from 'next-auth/react'
 export default function footer({ addpost, setIsLoading }: any) {
     const path = usePathname()
+    const session = useSession()
+    if(session.data===null)return <></>
     if (!app.footer.includes(path || "/")) return <></>
     return (
         <footer className="w-full fixed bottom-0 bg-zinc-100/80 backdrop-blur-md backdrop-saturate-[1.8] z-30 pb-3 pt-1">

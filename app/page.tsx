@@ -59,16 +59,16 @@ export default function Page() {
 
   // If not authenticated, show landing page
   return (
-    <div className="min-h-[89vh] bg-gradient-to-br from-zinc-50 to-zinc-100">
+    <div className="min-h-[89vh] bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
           <div className="text-center">
-            <div className="logo text-8xl mb-6 font-bold">dinka</div>
-            <h1 className="text-4xl md:text-6xl font-bold text-zinc-800 mb-6">
+            <div className="logo text-8xl mb-6 font-bold dark:text-zinc-100">dinka</div>
+            <h1 className="text-4xl md:text-6xl font-bold text-zinc-800 dark:text-zinc-100 mb-6">
               Connect. Share. Discover.
             </h1>
-            <p className="text-xl md:text-2xl text-zinc-600 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-zinc-600 dark:text-zinc-300 mb-8 max-w-3xl mx-auto">
               Dinka is a modern social media platform where you can share posts, 
               interact through likes and comments, and connect with others in real time.
             </p>
@@ -92,46 +92,46 @@ export default function Page() {
       {/* Features Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-zinc-800 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-zinc-800 dark:text-zinc-100 mb-4">
             Why Choose Dinka?
           </h2>
-          <p className="text-lg text-zinc-600 max-w-2xl mx-auto">
+          <p className="text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl mx-auto">
             Experience social media the way it should be - simple, engaging, and meaningful.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 dark:bg-zinc-800">
             <CardContent className="p-8 text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <MessageCircleIcon className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-zinc-800 mb-4">Real-time Chat</h3>
-              <p className="text-zinc-600">
+              <h3 className="text-xl font-semibold text-zinc-800 dark:text-zinc-100 mb-4">Real-time Chat</h3>
+              <p className="text-zinc-600 dark:text-zinc-300">
                 Connect instantly with friends through our seamless messaging system.
               </p>
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 dark:bg-zinc-800">
             <CardContent className="p-8 text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <HeartIcon className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-zinc-800 mb-4">Engage & React</h3>
-              <p className="text-zinc-600">
+              <h3 className="text-xl font-semibold text-zinc-800 dark:text-zinc-100 mb-4">Engage & React</h3>
+              <p className="text-zinc-600 dark:text-zinc-300">
                 Like, comment, and share posts to build meaningful connections.
               </p>
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 dark:bg-zinc-800">
             <CardContent className="p-8 text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <UsersIcon className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-zinc-800 mb-4">Find Friends</h3>
-              <p className="text-zinc-600">
+              <h3 className="text-xl font-semibold text-zinc-800 dark:text-zinc-100 mb-4">Find Friends</h3>
+              <p className="text-zinc-600 dark:text-zinc-300">
                 Discover and connect with people who share your interests.
               </p>
             </CardContent>
@@ -140,29 +140,29 @@ export default function Page() {
       </div>
 
       {/* Stats Section */}
-      <div className="bg-white/50 backdrop-blur-sm">
+      <div className="bg-white/50 dark:bg-zinc-800/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div>
               <div className="flex items-center justify-center mb-4">
                 <SparklesIcon className="w-8 h-8 text-purple-600 mr-2" />
-                <span className="text-4xl font-bold text-zinc-800">Modern</span>
+                <span className="text-4xl font-bold text-zinc-800 dark:text-zinc-100">Modern</span>
               </div>
-              <p className="text-zinc-600">Clean, intuitive design that puts content first</p>
+              <p className="text-zinc-600 dark:text-zinc-300">Clean, intuitive design that puts content first</p>
             </div>
             <div>
               <div className="flex items-center justify-center mb-4">
                 <TrendingUpIcon className="w-8 h-8 text-blue-600 mr-2" />
-                <span className="text-4xl font-bold text-zinc-800">Fast</span>
+                <span className="text-4xl font-bold text-zinc-800 dark:text-zinc-100">Fast</span>
               </div>
-              <p className="text-zinc-600">Lightning-fast performance and real-time updates</p>
+              <p className="text-zinc-600 dark:text-zinc-300">Lightning-fast performance and real-time updates</p>
             </div>
             <div>
               <div className="flex items-center justify-center mb-4">
                 <ShareIcon className="w-8 h-8 text-green-600 mr-2" />
-                <span className="text-4xl font-bold text-zinc-800">Social</span>
+                <span className="text-4xl font-bold text-zinc-800 dark:text-zinc-100">Social</span>
               </div>
-              <p className="text-zinc-600">Built for meaningful connections and conversations</p>
+              <p className="text-zinc-600 dark:text-zinc-300">Built for meaningful connections and conversations</p>
             </div>
           </div>
         </div>

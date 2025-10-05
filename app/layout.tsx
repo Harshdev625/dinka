@@ -17,9 +17,9 @@ export const metadata: Metadata = {
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
   },
-  // ✅ Add Google site verification here
   other: {
     "google-site-verification": "W49636xYHCMc-ZbfBL18OBoCuP6j0kAKQ3VLFzd_E8A",
+    "google-adsense-account": "ca-pub-6922023305389397",
   },
 };
 
@@ -31,10 +31,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Fallback in case metadata.other isn't automatically injected */}
+        {/* Google Verification & AdSense Meta Tags */}
         <meta
           name="google-site-verification"
           content="W49636xYHCMc-ZbfBL18OBoCuP6j0kAKQ3VLFzd_E8A"
+        />
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-6922023305389397"
         />
       </head>
       <body className="bg-zinc-50 dark:bg-zinc-900 antialiased min-h-screen">
@@ -55,13 +59,7 @@ export default function RootLayout({
           </SessionProvider>
         </ThemeProvider>
 
-        {/* Google AdSense Script */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6922023305389397"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+      
       </body>
     </html>
   );
